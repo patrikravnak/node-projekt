@@ -7,14 +7,16 @@ const app = express();
 // Bodyparser Middleware
 app.use(bodyParser.json());
 
-//DB Config
+// DB Config
 const db = require('./config/keys').mongoURI;
 
-//Povezava na Mongo
+// Connect to Mongo
 mongoose
-    .connect(db)
-    .than(() => console.log('MongoDB povezan...'))
-    .catch(err => console.log(err));
+  .connect(db, {useNewUrlParser: true}) // Adding new mongo url parser
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
 
-    const port = process.env.PORT || 5000;
-    app.listen(port, () => console.log(`Strežnik se je zagnal na ${port}`));
+
+  const port = process.env.PORT || 5000;
+
+  app.listen(port, () => console.log(`Server started on port ${port}`));
